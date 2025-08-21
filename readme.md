@@ -113,17 +113,23 @@ spring.mail.properties.mail.smtp.starttls.enable=true
 
 
 ## 🌟 Future Enhancements
+**Allow users to save their favorite dishes and track their personal carbon footprint and also suggest lower carbon alternatives for ingredients to promote sustainable choices**
+
+**A dashboard where admin can see the insights**
+
+**Implement caching for frequently requested dishes to reduce API calls**
+
+**User can also see historical footprint comparisons**
+
+**Reward users for choosing lower carbon dishes with points, badges or rank them in leaderboard**
+
+**Multiple language support**
+
+**Try Microservices, where we scale the auth service and carbon estimation services individually as per the traffic**
 
 **Add OAuth2 login (Google, GitHub)**
 
 **Role-based access (Admin, User)**
 
-**A dashboard where admin can see the insights**
-
-**User can also see historical footprint comparisons**
-
-**Multiple language support**
-
-**Try Microservices, where we scale the auth service and carbon estimation services individually as per the traffic**
 
 
