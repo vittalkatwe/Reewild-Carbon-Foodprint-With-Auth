@@ -95,10 +95,69 @@ spring.mail.properties.mail.smtp.auth=true
 spring.mail.properties.mail.smtp.starttls.enable=true
 ```
 
+---
+
+## Assumptions and Limitations
+- **The system does not store user preferences or history**
+
+- **Carbon emission values for ingredients are inferred from AI and may not be precise**
+
+- **Currently I'm using Map Data Structure as Cache to reduce the AI calls for frequent dishes**
+
+- **may not capture exact ingredient quantities or certain ingredients**
+
+- **Currently it is designed for one dish at a time, does not handle full meals, combos, or meal plans. if an image is upload with two or more meals it may not be able to identify**
+
+- **Certain common misspellings or variations of dish names are automatically corrected (e.g., “chiken biryani” → “Chicken Biryani”) to improve AI prediction accuracy**
+
+- **AI may combine similar ingredients (e.g., “spices”) into a single category.**
 
 ---
 
 
+## My key Design decisions and reasoning
+1. **Spring Boot for Backend**  
+
+   I chose spring boot for its simplicity, security support (Spring Security + JWT), faster development, and easy integration with MongoDB.
+
+2. **React + TypeScript Frontend**  
+ 
+   Provides a fast, modern, type safe frontend. Vite ensures fast page loads.
+
+3. **Database - MongoDB**  
+
+   Flexible schema for storing user data (email, password, verification, last login, createed at, verified at). easy to scale and integrate with Spring Boot.
+
+4. **JWT Authentication**  
+
+   Stateless token-based authentication for secure and scalable login sessions.
+
+5. **Email Verification**  
+
+   Ensures valid users and prevents spam registrations.
+
+6. **Google AI Studio Integration**  
+
+   - LLM for ingredient inference from dish names.  
+   - Vision API for identifying dishes from images.  
+   Allows estimation without hardcoding dishes or ingredients.
+
+7. **Cache for Frequent Dishes**
+   
+   A Map data structure stores previously requested dishes and their carbon scores to reduce API calls and speed up responses. I know this is not efficient, we can replace it with redis in future.
+
+8. **Dish Name Autocorrection**
+   
+   Corrects common misspellings to improve AI prediction accuracy.
+
+9. **Future-ready Structure**
+      
+    Modular code structure allows easy addition of features like dashboards, user favorites, gamification, and multi-language support.
+
+10. **Data Model**
+    
+    I have taken these (email, password, verification, last login, createed at, verified at), as in future we might add some new features, where we show users when their acccount was create or when did they last login.
+    
 
 | Column          | Type      | Constraints        |
 | --------------- | --------- | ------------------ |
@@ -115,23 +174,23 @@ spring.mail.properties.mail.smtp.starttls.enable=true
 
 
 ## 🌟 Future Enhancements
-**Allow users to save their favorite dishes and track their personal carbon footprint and also suggest lower carbon alternatives for ingredients to promote sustainable choices**
+- **Allow users to save their favorite dishes and track their personal carbon footprint and also suggest lower carbon alternatives for ingredients to promote sustainable choices**
 
-**A dashboard where admin can see the insights**
+- **A dashboard where admin can see the insights**
 
-**Implement caching for frequently requested dishes to reduce API calls**
+- **Implement caching for frequently requested dishes to reduce API calls**
 
-**User can also see historical footprint comparisons**
+- **User can also see historical footprint comparisons**
 
-**Reward users for choosing lower carbon dishes with points, badges or rank them in leaderboard**
+- **Reward users for choosing lower carbon dishes with points, badges or rank them in leaderboard**
 
-**Multiple language support**
+- **Multiple language support**
 
-**Try Microservices, where we scale the auth service and carbon estimation services individually as per the traffic**
+- **Try Microservices, where we scale the auth service and carbon estimation services individually as per the traffic**
 
-**Add OAuth2 login (Google, GitHub)**
+- **Add OAuth2 login (Google, GitHub)**
 
-**Role-based access (Admin, User)**
+- **Role-based access (Admin, User)**
 
 
 
