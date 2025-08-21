@@ -37,15 +37,16 @@ The carbon footprint with the dish is not added in the database (as mentioned in
 ### 1. Run Locally
 **Backend (Spring Boot)**
 ```bash
-git clone https://github.com/vittalkatwe/Reewild-Carbon-Foodprint-With-Auth.git
-cd Reewild-Carbon-Foodprint-With-Auth
+git clone https://github.com/vittalkatwe/Reewild-Carbon-Foodprint-With-Auth-Backend.git
+cd Reewild-Carbon-Foodprint-With-Auth-Backend
 mvn spring-boot:run
 ```
 
 
 **Frontend (React)**
 ```bash
-cd frontend
+git clone https://github.com/vittalkatwe/Reewild-Carbon-Foodprint-With-Auth-Frontend.git
+cd Reewild-Carbon-Foodprint-With-Auth-Frontend
 npm install
 npm run dev
 ```
