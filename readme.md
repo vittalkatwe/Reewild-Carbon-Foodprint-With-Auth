@@ -42,7 +42,7 @@ The carbon footprint with the dish is not added in the database (as mentioned in
 
 
 ### 1. Run Locally 
-**Backend (Spring Boot)** (Before running the backend please make sure that the application.properties is updated accordingly)
+**Backend (Spring Boot)** (Before running the backend please make sure that the **application.properties** is updated accordingly)
 ```bash
 git clone https://github.com/vittalkatwe/Reewild-Carbon-Foodprint-With-Auth-Backend.git
 cd Reewild-Carbon-Foodprint-With-Auth-Backend
