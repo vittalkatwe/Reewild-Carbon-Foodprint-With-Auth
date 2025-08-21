@@ -2,8 +2,8 @@ package org.example.authenticationwithverification.service;
 
 import org.example.authenticationwithverification.model.AppUser;
 import org.example.authenticationwithverification.repository.UserRepository;
+import org.example.authenticationwithverification.security.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +11,9 @@ import java.time.LocalDateTime;
 
 @Service
 public class AuthService {
+
+    @Autowired
+    private JwtUtils jwtUtils;
 
     @Autowired
     private UserRepository userRepo;
@@ -23,7 +26,7 @@ public class AuthService {
 
     public String register(String email, String password) {
         if (userRepo.findByEmail(email).isPresent()) {
-            return "User already exists!";
+            throw new RuntimeException("User already exists!");
         }
 
         String otp = mailService.sendOtp(email);
@@ -32,7 +35,7 @@ public class AuthService {
                 .email(email)
                 .password(passwordEncoder.encode(password))
                 .otp(otp)
-                .otpExpiry(LocalDateTime.now().plusMinutes(5)) // ✅ 5 mins expiry
+                .otpExpiry(LocalDateTime.now().plusMinutes(5)) // 5 mins expiry
                 .enabled(false)
                 .createdAt(LocalDateTime.now())
                 .build();
@@ -42,10 +45,11 @@ public class AuthService {
     }
 
     public String verifyOtp(String email, String otp) {
-        AppUser user = userRepo.findByEmail(email).orElseThrow();
+        AppUser user = userRepo.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found!"));
 
         if (user.getOtpExpiry() == null || user.getOtpExpiry().isBefore(LocalDateTime.now())) {
-            return "OTP expired! Please request a new one.";
+            throw new RuntimeException("OTP expired! Please request a new one.");
         }
 
         if (user.getOtp().equals(otp)) {
@@ -56,11 +60,12 @@ public class AuthService {
             userRepo.save(user);
             return "Verification successful!";
         }
-        return "Invalid OTP!";
+        throw new RuntimeException("Invalid OTP!");
     }
 
     public String resendOtp(String email) {
-        AppUser user = userRepo.findByEmail(email).orElseThrow();
+        AppUser user = userRepo.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found!"));
         String newOtp = mailService.sendOtp(email);
 
         user.setOtp(newOtp);
@@ -75,17 +80,15 @@ public class AuthService {
                 .orElseThrow(() -> new RuntimeException("User not found!"));
 
         if (!user.isEnabled()) {
-            return "User not verified. Please verify OTP first.";
+            throw new RuntimeException("User not verified. Please verify OTP first.");
         }
 
         if (!passwordEncoder.matches(password, user.getPassword())) {
-            return "Invalid credentials!";
+            throw new RuntimeException("Invalid credentials!");
         }
         user.setLastLoginAt(LocalDateTime.now());
         userRepo.save(user);
-        return "Login successful!";
+
+        return jwtUtils.generateToken(email);
     }
-
-
-
 }
