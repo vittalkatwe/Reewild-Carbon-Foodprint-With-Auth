@@ -64,6 +64,8 @@ npm run dev
 docker run -d -p 8080:8080 vittalkat/carbon-backend
 docker run -d -p 5173:5173 vittalkat/frontend-app:latest
 ```
+## the frontend will be running on **http://localhost:5173**
+## the backend will be running on **http://localhost:8080**
 
 
 ### Application Properties
