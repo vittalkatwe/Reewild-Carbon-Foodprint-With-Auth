@@ -169,9 +169,21 @@ spring.mail.properties.mail.smtp.starttls.enable=true
 | created\_at     | Timestamp | Current TimeStamp  |
 | verified\_at    | Timestamp | Verification time  |
 
-
 ---
 
+## If this was going to production
+- **Move to microservices architecture: separate auth, carbon estimation, and image processing services (to scale them individually if there is more traffic on a certain service)**
+- **Implement caching (Redis or similar) for frequently requested dishes, this will reduce AI api calls**
+- **Add OAuth2 login (Google, GitHub) in addition to JWT and input validation**
+- **use verified carbon footprint datasets instead of using inferred values.**
+- **Set up alerts for downtime, slow responses, or AI api failures**
+- **Create multiple instance of the DB and services to avoid downtime**
+- **we can use GraphQL which allows frontend to request exactly the data needed and avoid fetching data that is not required.**
+- **Use database replication and multiple service instances so that the system doesnt go down even if one instance fails and we have high availability and fault tolerance.**
+- **Use async communication with Kafka or any other message queues for heavy tasks, this improve system responsiveness and scalability under high traffic as the system doesnt need to wait for the response, as it just publishes an event which is consumed by the server** (This only works if we implement any real-time kind of feature)
+
+
+---
 
 ## 🌟 Future Enhancements
 - **Allow users to save their favorite dishes and track their personal carbon footprint and also suggest lower carbon alternatives for ingredients to promote sustainable choices**
