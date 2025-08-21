@@ -83,7 +83,7 @@ public class CarbonFootprintService {
         return null;
     }
 
-
+    // this is optional to avoid repetitive AI calls, we can either use an actual cache or take this approach out completely
     private final Map<String, CarbonFootprintResponse> footprintCache = new ConcurrentHashMap<>();
 
     public CarbonFootprintResponse calculateCarbonFootprint(String dish, long servings) {

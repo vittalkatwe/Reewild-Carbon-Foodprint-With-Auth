@@ -91,6 +91,7 @@
     </dependencies>
 
     <build>
+        <finalName>Reewild Carbon Foodprint Estimator</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

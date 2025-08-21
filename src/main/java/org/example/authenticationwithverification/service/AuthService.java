@@ -31,14 +31,13 @@ public class AuthService {
 
         String otp = mailService.sendOtp(email);
 
-        AppUser user = AppUser.builder()
-                .email(email)
-                .password(passwordEncoder.encode(password))
-                .otp(otp)
-                .otpExpiry(LocalDateTime.now().plusMinutes(5)) // 5 mins expiry
-                .enabled(false)
-                .createdAt(LocalDateTime.now())
-                .build();
+        AppUser user = new AppUser();
+        user.setEmail(email);
+        user.setPassword(passwordEncoder.encode(password));
+        user.setOtp(otp);
+        user.setOtpExpiry(LocalDateTime.now().plusMinutes(5));
+        user.setEnabled(false);
+        user.setCreatedAt(LocalDateTime.now());
 
         userRepo.save(user);
         return "OTP sent to email! Valid for 5 minutes.";
