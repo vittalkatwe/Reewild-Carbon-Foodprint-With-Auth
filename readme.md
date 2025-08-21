@@ -5,6 +5,7 @@ The system also provides authentication with email verification and add the user
 
 The carbon footprint with the dish is not added in the database (as mentioned in the assignment document).
 
+### Note - The Registration takes around 6-15 seconds (as the JavaMailSender bean is being initialized)
 ---
 
 ## Features
